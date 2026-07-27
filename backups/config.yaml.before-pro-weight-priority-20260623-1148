@@ -1,0 +1,334 @@
+model_list:
+  # ------------------------------------------------------------------
+  # smart-model: 通用高质量模型池
+  # ------------------------------------------------------------------
+  - model_name: smart-model
+    litellm_params:
+      model: openai/agent/deepseek-v3.2(free)
+      api_base: https://open.cherryin.ai/v1
+      api_key: os.environ/CHERRYIN_API_KEY
+
+  - model_name: smart-model
+    litellm_params:
+      model: openai/deepseek-ai/DeepSeek-V3.2
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+
+  - model_name: smart-model
+    litellm_params:
+      model: openai/Pro/deepseek-ai/DeepSeek-V3.2
+      api_base: https://api.siliconflow.cn/v1
+      api_key: os.environ/SILICONFLOW_API_KEY
+
+  - model_name: smart-model
+    litellm_params:
+      model: openai/GLM-4.5-Flash
+      api_base: https://api.z.ai/api/paas/v4
+      api_key: os.environ/ZAI_API_KEY
+
+  # ------------------------------------------------------------------
+  # claude-smart: Anthropic-compatible 客户端使用的逻辑模型名
+  # ------------------------------------------------------------------
+  - model_name: claude-smart
+    litellm_params:
+      model: openai/Pro/deepseek-ai/DeepSeek-V3.2
+      api_base: https://api.siliconflow.cn/v1
+      api_key: os.environ/SILICONFLOW_API_KEY
+
+  # ------------------------------------------------------------------
+  # code-model: 编程 / IDE Agent 模型池
+  # ------------------------------------------------------------------
+  - model_name: code-model
+    litellm_params:
+      model: openai/gpt-5.5
+      api_base: https://dizco.xql.pp.ua/v1
+      api_key: os.environ/CUSTOM_GPT_API_KEY
+      extra_headers:
+        User-Agent: curl/8.0
+
+  - model_name: gpt
+    litellm_params:
+      model: openai/gpt-5.5
+      api_base: https://dizco.xql.pp.ua/v1
+      api_key: os.environ/CUSTOM_GPT_API_KEY
+      extra_headers:
+        User-Agent: curl/8.0
+
+  - model_name: code-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-Coder-480B-A35B-Instruct
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+
+  # ------------------------------------------------------------------
+  # fast-model: 快速 / 低成本模型池
+  # ------------------------------------------------------------------
+  # Disabled: this deployment currently returns 401 Invalid token and can push
+  # the whole fast-model pool into cooldown when the other providers are busy.
+  # - model_name: fast-model
+  #   litellm_params:
+  #     model: openai/deepseek/deepseek-v4-flash(free)
+  #     api_base: https://open.cherryin.ai/v1
+  #     api_key: os.environ/CHERRYIN_API_KEY
+
+  - model_name: fast-model
+    litellm_params:
+      model: openai/deepseek-ai/DeepSeek-V4-Flash
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+
+  - model_name: fast-model
+    litellm_params:
+      model: openai/GLM-4.5-Flash
+      api_base: https://api.z.ai/api/paas/v4
+      api_key: os.environ/ZAI_API_KEY
+
+
+  # ------------------------------------------------------------------
+  # flash-model: ModelScope 次级大模型 / Flash / 老模型池
+  # ------------------------------------------------------------------
+  - model_name: flash-model
+    litellm_params:
+      model: openai/ZhipuAI/GLM-5
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/nex-agi/Nex-N2-Pro
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/PaddlePaddle/ERNIE-4.5-300B-A47B-PT
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/moonshotai/Kimi-K2.5
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/MiniMax/MiniMax-M2.5
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/ZhipuAI/GLM-4.7-Flash
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/stepfun-ai/Step-3.7-Flash
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/stepfun-ai/Step-3.5-Flash
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/meituan-longcat/LongCat-Flash-Lite
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/XiaomiMiMo/MiMo-V2-Flash
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-235B-A22B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-235B-A22B-Instruct-2507
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-235B-A22B-Thinking-2507
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3.5-27B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3.5-35B-A3B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-30B-A3B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-30B-A3B-Thinking-2507
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-32B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-14B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-8B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-4B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-Coder-30B-A3B-Instruct
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+    rpm: 1
+    max_parallel_requests: 1
+  # ------------------------------------------------------------------
+  # pro-model: ModelScope 高优先级模型池
+  # ------------------------------------------------------------------
+  - model_name: pro-model
+    litellm_params:
+      model: openai/ZhipuAI/GLM-5.2
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 4
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: pro-model
+    litellm_params:
+      model: openai/ZhipuAI/GLM-5.1
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 4
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: pro-model
+    litellm_params:
+      model: openai/MiniMax/MiniMax-M3
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 4
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: pro-model
+    litellm_params:
+      model: openai/deepseek-ai/DeepSeek-V3.2
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 4
+    rpm: 1
+    max_parallel_requests: 1
+  - model_name: pro-model
+    litellm_params:
+      model: openai/deepseek-ai/DeepSeek-V4-Flash
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+  # ------------------------------------------------------------------
+  # backup-model: 非 ModelScope 稳定兜底
+  # ------------------------------------------------------------------
+  - model_name: backup-model
+    litellm_params:
+      model: openai/GLM-4.5-Flash
+      api_base: https://api.z.ai/api/paas/v4
+      api_key: os.environ/ZAI_API_KEY
+
+  - model_name: backup-model
+    litellm_params:
+      model: openai/GLM-4.7-Flash
+      api_base: https://api.z.ai/api/paas/v4
+      api_key: os.environ/ZAI_API_KEY
+
+  - model_name: backup-model
+    litellm_params:
+      model: openai/Pro/deepseek-ai/DeepSeek-V3.2
+      api_base: https://api.siliconflow.cn/v1
+      api_key: os.environ/SILICONFLOW_API_KEY
+
+  - model_name: backup-model
+    litellm_params:
+      model: openai/gpt-5.5
+      api_base: https://dizco.xql.pp.ua/v1
+      api_key: os.environ/CUSTOM_GPT_API_KEY
+      extra_headers:
+        User-Agent: curl/8.0
+
+router_settings:
+  routing_strategy: simple-shuffle
+  num_retries: 2
+  timeout: 120
+  allowed_fails: 1
+  cooldown_time: 3600
+
+litellm_settings:
+  callbacks: [prometheus]
+  service_callback: [prometheus_system]
+  request_timeout: 120
+  use_chat_completions_url_for_anthropic_messages: true
+  set_verbose: false
+  fallbacks:
+    - pro-model: ["flash-model", "backup-model"]
+    - flash-model: ["backup-model"]
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
