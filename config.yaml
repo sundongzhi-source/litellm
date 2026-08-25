@@ -261,14 +261,6 @@ model_list:
     rpm: 1
     max_parallel_requests: 1
 
-  - model_name: pro-model
-    litellm_params:
-      model: openai/MiniMax/MiniMax-M3
-      api_base: https://api-inference.modelscope.cn/v1/
-      api_key: os.environ/MODELSCOPE_API_KEY
-      weight: 2
-    rpm: 1
-    max_parallel_requests: 1
 
   # ------------------------------------------------------------------
   # backup-model: 非 ModelScope 稳定兜底
