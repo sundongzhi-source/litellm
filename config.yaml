@@ -186,7 +186,7 @@ model_list:
 
   - model_name: backup-model
     litellm_params:
-      model: openai/Pro/deepseek-ai/DeepSeek-V3.2
+      model: openai/deepseek-ai/DeepSeek-V4-Flash
       api_base: https://api.siliconflow.cn/v1
       api_key: os.environ/SILICONFLOW_API_KEY
 
