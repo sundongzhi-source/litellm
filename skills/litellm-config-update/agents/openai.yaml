@@ -1,0 +1,3 @@
+interface:
+  display_name: "LiteLLM Config Update"
+  short_description: "Update LiteLLM model groups using cost-first ModelScope routing rules"
