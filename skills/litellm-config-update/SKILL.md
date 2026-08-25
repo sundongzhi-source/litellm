@@ -19,6 +19,18 @@ description: 当 ModelScope 模型列表变化时，按新闻早中晚报的经�
 
 除非用户明确改变目标，否则保持这个顺序。
 
+## 修改前强制提交
+
+每次修改 `config.yaml` 之前，必须先把当前 `config.yaml` 状态提交并推送到 GitHub，作为可回滚基线。
+
+执行规则：
+
+- 在任何 `config.yaml` 编辑前，先查看 `git diff -- config.yaml`。
+- 如果 `config.yaml` 有未提交改动，先验证 YAML 语法，再只暂存 `config.yaml`，创建一个说明“修改前基线”的提交，并推送到当前 GitHub 分支。
+- 如果 `config.yaml` 没有未提交改动，记录当前 `HEAD` 作为修改前基线，不需要制造空提交，除非用户明确要求。
+- 提交基线时，不要把 `.env`、报告、脚本、其它 skill 或无关未跟踪文件加入提交。
+- 基线提交和推送成功后，才能开始新的 `config.yaml` 修改。
+
 ## ModelScope 约束
 
 ModelScope API-Inference 是免费、非商业化、无 SLA 的服务，并且会根据平台压力动态调整额度和并发限制。它适合开发者体验和低并发任务，不适合高并发线上生产。
@@ -36,33 +48,46 @@ ModelScope API-Inference 是免费、非商业化、无 SLA 的服务，并且�
 
 ### `pro-model`
 
-放置预期质量更高的免费 ModelScope 模型，用于中文新闻摘要、综合写作和推理。优先选择大型指令模型和当前旗舰模型。
+放置预期质量更高的免费 ModelScope 模型，用于中文新闻摘要、综合写作和推理。优先选择大型指令模型、强推理模型和当前旗舰模型。
 
-之前可用性检查中的较好候选包括：
+当前优先候选包括：
 
-- `ZhipuAI/GLM-5.2`
+- `Qwen/Qwen3.5-397B-A17B`
+- `Qwen/Qwen3-235B-A22B`
 - `Qwen/Qwen3-235B-A22B-Instruct-2507`
+- `Qwen/Qwen3-235B-A22B-Thinking-2507`
+- `ZhipuAI/GLM-5.2`
 - `deepseek-ai/DeepSeek-V4-Pro-0813`
 - `deepseek-ai/DeepSeek-V4-Pro`
 - `MiniMax/MiniMax-M3`
 
-权重应保持保守，避免某个弱模型或动态受限模型占据过多流量。如果不确定，优先在 3-5 个最强候选之间使用接近的权重。
+权重应保持保守，避免某个弱模型或动态受限模型占据过多流量。如果不确定，优先在 4-8 个最强候选之间使用接近的权重。
 
 ### `flash-model`
 
 放置免费、较小、较快或更适合兜底摘要/改写的 ModelScope 模型。这一组用于 `pro-model` 额度不足、限流或失败后的低成本替代。
 
-之前可用性检查中的较好候选包括：
+当前优先候选包括：
 
 - `deepseek-ai/DeepSeek-V4-Flash-0731`
-- `Qwen/Qwen3-Next-80B-A3B-Instruct`
 - `Qwen/Qwen3-30B-A3B`
+- `Qwen/Qwen3-30B-A3B-Thinking-2507`
+- `Qwen/Qwen3-Coder-30B-A3B-Instruct`
+- `Qwen/Qwen3-Next-80B-A3B-Instruct`
+- `Qwen/Qwen3-Next-80B-A3B-Thinking`
+- `Qwen/Qwen3.5-122B-A10B`
+- `Qwen/Qwen3.5-27B`
+- `Qwen/Qwen3.5-35B-A3B`
+- `Qwen/Qwen3.8-27B`
+- `meituan-longcat/LongCat-Flash-Lite`
+- `ZhipuAI/GLM-4.7-Flash`
+
+当前明确不应放入 `flash-model` 的模型包括：
+
 - `Qwen/Qwen3-14B`
 - `Qwen/Qwen3-8B`
 - `stepfun-ai/Step-3.5-Flash`
 - `stepfun-ai/Step-3.7-Flash`
-- `meituan-longcat/LongCat-Flash-Lite`
-- `ZhipuAI/GLM-4.7-Flash`
 
 只有在有明确理由时，才让同一个 ModelScope 模型同时出现在 `pro-model` 和 `flash-model`。避免无意义重复，因为同一供应商的限制通常是共享的。
 
@@ -100,16 +125,17 @@ litellm_settings:
 3. 找出当前配置中无效的 ModelScope ID，并提出替换方案。
 4. 按上面的模型组规则分配候选模型。
 5. 如果用户只是要求建议，先给出简明 diff 或模型组列表，不直接修改文件。
-6. 如果用户要求应用变更，只编辑 `config.yaml`，除非明确需要其他文件。
+6. 如果用户要求应用变更，先执行“修改前强制提交”，再只编辑 `config.yaml`，除非明确需要其他文件。
 7. 编辑后验证 YAML 语法。
 8. 只有在用户要求生效或已经明确暗示要应用到运行服务时，才重启 LiteLLM。
 9. 重启后尽量查询实时 `/model/info`，确认模型出现在预期模型组中。
+10. 修改完成后，如用户要求保存或发布，再单独提交并推送新的 `config.yaml` 修改。
 
 不要在回复中暴露 API key。如果命令输出包含密钥，应只给出脱敏摘要。
 
 ## 验证
 
-编辑后至少运行：
+修改前基线提交前、以及编辑后，至少运行：
 
 ```bash
 python3 -c "import yaml, pathlib; data=yaml.safe_load(pathlib.Path('config.yaml').read_text()); print(type(data).__name__); print(len(data['model_list']))"
