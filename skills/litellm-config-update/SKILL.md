@@ -1,6 +1,6 @@
 ---
 name: litellm-config-update
-description: Update LiteLLM config.yaml model groups for the user's news-report workload when ModelScope model availability changes, using free strong models first, free small/fast models second, and paid providers only as final fallback.
+description: 当 ModelScope 模型列表变化时，按新闻早中晚报的经济性优先策略更新 LiteLLM config.yaml：先用免费强模型，再用免费小参数/快速模型，最后才用收费供应商兜底。
 ---
 
 # LiteLLM Config Update
