@@ -40,6 +40,7 @@ ModelScope API-Inference 是免费、非商业化、无 SLA 的服务，并且�
 - 将 ModelScope 视为经济优先的尽力而为容量。
 - ModelScope 部署优先保持单并发：除非用户明确要求，否则保留 `rpm: 1` 和 `max_parallel_requests: 1`。
 - 只使用当前账号调用 `https://api-inference.modelscope.cn/v1/models` 返回的精确模型 ID。
+- 本技能中列出的具体模型只是创建技能时的当前参考，会随 ModelScope 可用列表变化；后续更新时必须以实时 `/v1/models` 返回为准，不要把参考清单当成固定白名单。
 - 在 LiteLLM 中，ModelScope 模型写成 `openai/<精确模型ID>`，并使用 `api_base: https://api-inference.modelscope.cn/v1/` 和 `api_key: os.environ/MODELSCOPE_API_KEY`。
 - 不要自造别名或缩写模型名。例如 `/v1/models` 返回 `deepseek-ai/DeepSeek-V4-Flash-0731` 时，不要配置成 `deepseek-ai/DeepSeek-V4-Flash`。
 - 如果当前配置中的 ModelScope 模型不再出现在 `/v1/models` 返回里，应移除或替换；这类模型通常会报 `has no provider supported`。
@@ -61,7 +62,7 @@ ModelScope API-Inference 是免费、非商业化、无 SLA 的服务，并且�
 
 放置预期质量更高的免费 ModelScope 模型，用于中文新闻摘要、综合写作和推理。优先选择大型指令模型、强推理模型和当前旗舰模型。
 
-当前优先候选包括：
+当前参考候选包括，仅用于辅助判断，后续以实时 `/v1/models` 返回为准：
 
 - `Qwen/Qwen3.5-397B-A17B`
 - `Qwen/Qwen3-235B-A22B`
@@ -78,7 +79,7 @@ ModelScope API-Inference 是免费、非商业化、无 SLA 的服务，并且�
 
 放置免费、较小、较快或更适合兜底摘要/改写的 ModelScope 模型。这一组用于 `pro-model` 额度不足、限流或失败后的低成本替代。
 
-当前优先候选包括：
+当前参考候选包括，仅用于辅助判断，后续以实时 `/v1/models` 返回为准：
 
 - `deepseek-ai/DeepSeek-V4-Flash-0731`
 - `Qwen/Qwen3-30B-A3B`
@@ -93,7 +94,7 @@ ModelScope API-Inference 是免费、非商业化、无 SLA 的服务，并且�
 - `meituan-longcat/LongCat-Flash-Lite`
 - `ZhipuAI/GLM-4.7-Flash`
 
-当前明确不应放入 `flash-model` 的模型包括：
+当前参考排除项包括，仅反映已有偏好，后续仍需结合实时 `/v1/models` 和用户要求判断：
 
 - `Qwen/Qwen3-14B`
 - `Qwen/Qwen3-8B`
