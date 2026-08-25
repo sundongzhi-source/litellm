@@ -10,7 +10,7 @@ model_list:
 
   - model_name: smart-model
     litellm_params:
-      model: openai/deepseek-ai/DeepSeek-V3.2
+      model: openai/deepseek-ai/DeepSeek-V4-Pro-0813
       api_base: https://api-inference.modelscope.cn/v1/
       api_key: os.environ/MODELSCOPE_API_KEY
 
@@ -56,7 +56,7 @@ model_list:
 
   - model_name: code-model
     litellm_params:
-      model: openai/Qwen/Qwen3-Coder-480B-A35B-Instruct
+      model: openai/Qwen/Qwen3-Coder-30B-A3B-Instruct
       api_base: https://api-inference.modelscope.cn/v1/
       api_key: os.environ/MODELSCOPE_API_KEY
 
@@ -73,7 +73,7 @@ model_list:
 
   - model_name: fast-model
     litellm_params:
-      model: openai/deepseek-ai/DeepSeek-V4-Flash
+      model: openai/deepseek-ai/DeepSeek-V4-Flash-0731
       api_base: https://api-inference.modelscope.cn/v1/
       api_key: os.environ/MODELSCOPE_API_KEY
 
@@ -89,41 +89,151 @@ model_list:
   # ------------------------------------------------------------------
   - model_name: flash-model
     litellm_params:
-      model: openai/ZhipuAI/GLM-5
+      model: openai/deepseek-ai/DeepSeek-V4-Flash-0731
       api_base: https://api-inference.modelscope.cn/v1/
       api_key: os.environ/MODELSCOPE_API_KEY
-      weight: 4
-    rpm: 1
-    max_parallel_requests: 1
-  - model_name: flash-model
-    litellm_params:
-      model: openai/nex-agi/Nex-N2-Pro
-      api_base: https://api-inference.modelscope.cn/v1/
-      api_key: os.environ/MODELSCOPE_API_KEY
-      weight: 1
-    rpm: 1
-    max_parallel_requests: 1
-  - model_name: flash-model
-    litellm_params:
-      model: openai/PaddlePaddle/ERNIE-4.5-300B-A47B-PT
-      api_base: https://api-inference.modelscope.cn/v1/
-      api_key: os.environ/MODELSCOPE_API_KEY
-      weight: 1
-    rpm: 1
-    max_parallel_requests: 1
-  - model_name: flash-model
-    litellm_params:
-      model: openai/moonshotai/Kimi-K2.5
-      api_base: https://api-inference.modelscope.cn/v1/
-      api_key: os.environ/MODELSCOPE_API_KEY
-      weight: 4
+      weight: 8
     rpm: 1
     max_parallel_requests: 1
 
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-30B-A3B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-30B-A3B-Thinking-2507
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-Coder-30B-A3B-Instruct
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-Next-80B-A3B-Instruct
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-Next-80B-A3B-Thinking
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3.5-122B-A10B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3.5-27B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3.5-35B-A3B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: flash-model
+    litellm_params:
+      model: openai/Qwen/Qwen3.8-27B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: flash-model
+    litellm_params:
+      model: openai/meituan-longcat/LongCat-Flash-Lite
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: flash-model
+    litellm_params:
+      model: openai/ZhipuAI/GLM-4.7-Flash
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 4
+    rpm: 1
+    max_parallel_requests: 1
 
   # ------------------------------------------------------------------
   # pro-model: ModelScope 高优先级模型池
   # ------------------------------------------------------------------
+  - model_name: pro-model
+    litellm_params:
+      model: openai/Qwen/Qwen3.5-397B-A17B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: pro-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-235B-A22B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: pro-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-235B-A22B-Instruct-2507
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: pro-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-235B-A22B-Thinking-2507
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
   - model_name: pro-model
     litellm_params:
       model: openai/ZhipuAI/GLM-5.2
@@ -135,7 +245,16 @@ model_list:
 
   - model_name: pro-model
     litellm_params:
-      model: openai/ZhipuAI/GLM-5.1
+      model: openai/deepseek-ai/DeepSeek-V4-Pro-0813
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 8
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: pro-model
+    litellm_params:
+      model: openai/deepseek-ai/DeepSeek-V4-Pro
       api_base: https://api-inference.modelscope.cn/v1/
       api_key: os.environ/MODELSCOPE_API_KEY
       weight: 4
@@ -145,24 +264,6 @@ model_list:
   - model_name: pro-model
     litellm_params:
       model: openai/MiniMax/MiniMax-M3
-      api_base: https://api-inference.modelscope.cn/v1/
-      api_key: os.environ/MODELSCOPE_API_KEY
-      weight: 2
-    rpm: 1
-    max_parallel_requests: 1
-
-  - model_name: pro-model
-    litellm_params:
-      model: openai/deepseek-ai/DeepSeek-V3.2
-      api_base: https://api-inference.modelscope.cn/v1/
-      api_key: os.environ/MODELSCOPE_API_KEY
-      weight: 4
-    rpm: 1
-    max_parallel_requests: 1
-
-  - model_name: pro-model
-    litellm_params:
-      model: openai/deepseek-ai/DeepSeek-V4-Flash
       api_base: https://api-inference.modelscope.cn/v1/
       api_key: os.environ/MODELSCOPE_API_KEY
       weight: 2
