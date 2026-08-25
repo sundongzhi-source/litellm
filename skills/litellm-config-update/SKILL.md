@@ -139,9 +139,11 @@ litellm_settings:
 5. 如果用户只是要求建议，先给出简明 diff 或模型组列表，不直接修改文件。
 6. 如果用户要求应用变更，先执行“修改前强制提交”，再只编辑 `config.yaml`，除非明确需要其他文件。
 7. 编辑后验证 YAML 语法。
-8. 只有在用户要求生效或已经明确暗示要应用到运行服务时，才重启 LiteLLM。
-9. 重启后尽量查询实时 `/model/info`，确认模型出现在预期模型组中。
-10. 修改完成后，如用户要求保存或发布，再单独提交并推送新的 `config.yaml` 修改。
+8. 编辑后执行全量检查：对 `config.yaml` 中所有 ModelScope 部署，重新查询实时 `/v1/models` 并确认每个精确模型 ID 都存在；如果用户要求“所有模型有效”“全量检查”“可用性检查”，还要对所有配置模型执行实际调用健康检查。
+9. 报告检查结果时，必须分开说明“ID 有效性”和“实际调用可用性”：ID 存在只代表模型在列表中有效，不代表当前账号、额度、并发、供应商兼容层或模型服务一定可调用。
+10. 只有在用户要求生效或已经明确暗示要应用到运行服务时，才重启 LiteLLM。
+11. 重启后尽量查询实时 `/model/info`，确认模型出现在预期模型组中。
+12. 修改完成后，如用户要求保存或发布，再单独提交并推送新的 `config.yaml` 修改。
 
 不要在回复中暴露 API key。如果命令输出包含密钥，应只给出脱敏摘要。
 
@@ -152,5 +154,11 @@ litellm_settings:
 ```bash
 python3 -c "import yaml, pathlib; data=yaml.safe_load(pathlib.Path('config.yaml').read_text()); print(type(data).__name__); print(len(data['model_list']))"
 ```
+
+编辑 `config.yaml` 后，还必须做全量模型检查：
+
+- ModelScope ID 检查：使用当前 `MODELSCOPE_API_KEY` 调用 `https://api-inference.modelscope.cn/v1/models`，确认所有 `api_base: https://api-inference.modelscope.cn/v1/` 的部署模型都在返回列表中。
+- 全量运行时检查：当用户要求检查所有模型是否有效、或本次修改涉及模型列表/供应商路由时，对 `config.yaml` 中所有模型做一次实际调用探测，并记录健康、降级、失败数量。
+- 结果汇报中要明确区分：`/v1/models` 命中表示“模型 ID 有效”；实际调用探测成功才表示“当前运行时可用”。遇到 400、403、429、余额不足、响应格式异常等，应按运行时不可用或降级报告，不要把它混同为 ID 不存在。
 
 如果已经重启服务，还应使用 LiteLLM master key 查询 `/model/info`，确认预期模型已加载到预期模型组。
