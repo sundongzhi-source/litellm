@@ -85,6 +85,74 @@ model_list:
 
 
   # ------------------------------------------------------------------
+  # pro-model: ModelScope 高优先级模型池
+  # ------------------------------------------------------------------
+  - model_name: pro-model
+    litellm_params:
+      model: openai/Qwen/Qwen3.5-397B-A17B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: pro-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-235B-A22B
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: pro-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-235B-A22B-Instruct-2507
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: pro-model
+    litellm_params:
+      model: openai/Qwen/Qwen3-235B-A22B-Thinking-2507
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 1
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: pro-model
+    litellm_params:
+      model: openai/ZhipuAI/GLM-5.2
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 8
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: pro-model
+    litellm_params:
+      model: openai/deepseek-ai/DeepSeek-V4-Pro-0813
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 8
+    rpm: 1
+    max_parallel_requests: 1
+
+  - model_name: pro-model
+    litellm_params:
+      model: openai/deepseek-ai/DeepSeek-V4-Pro
+      api_base: https://api-inference.modelscope.cn/v1/
+      api_key: os.environ/MODELSCOPE_API_KEY
+      weight: 4
+    rpm: 1
+    max_parallel_requests: 1
+
+
+
+  # ------------------------------------------------------------------
   # flash-model: ModelScope 次级大模型 / Flash / 老模型池
   # ------------------------------------------------------------------
   - model_name: flash-model
@@ -194,73 +262,6 @@ model_list:
       weight: 4
     rpm: 1
     max_parallel_requests: 1
-
-  # ------------------------------------------------------------------
-  # pro-model: ModelScope 高优先级模型池
-  # ------------------------------------------------------------------
-  - model_name: pro-model
-    litellm_params:
-      model: openai/Qwen/Qwen3.5-397B-A17B
-      api_base: https://api-inference.modelscope.cn/v1/
-      api_key: os.environ/MODELSCOPE_API_KEY
-      weight: 1
-    rpm: 1
-    max_parallel_requests: 1
-
-  - model_name: pro-model
-    litellm_params:
-      model: openai/Qwen/Qwen3-235B-A22B
-      api_base: https://api-inference.modelscope.cn/v1/
-      api_key: os.environ/MODELSCOPE_API_KEY
-      weight: 1
-    rpm: 1
-    max_parallel_requests: 1
-
-  - model_name: pro-model
-    litellm_params:
-      model: openai/Qwen/Qwen3-235B-A22B-Instruct-2507
-      api_base: https://api-inference.modelscope.cn/v1/
-      api_key: os.environ/MODELSCOPE_API_KEY
-      weight: 1
-    rpm: 1
-    max_parallel_requests: 1
-
-  - model_name: pro-model
-    litellm_params:
-      model: openai/Qwen/Qwen3-235B-A22B-Thinking-2507
-      api_base: https://api-inference.modelscope.cn/v1/
-      api_key: os.environ/MODELSCOPE_API_KEY
-      weight: 1
-    rpm: 1
-    max_parallel_requests: 1
-
-  - model_name: pro-model
-    litellm_params:
-      model: openai/ZhipuAI/GLM-5.2
-      api_base: https://api-inference.modelscope.cn/v1/
-      api_key: os.environ/MODELSCOPE_API_KEY
-      weight: 8
-    rpm: 1
-    max_parallel_requests: 1
-
-  - model_name: pro-model
-    litellm_params:
-      model: openai/deepseek-ai/DeepSeek-V4-Pro-0813
-      api_base: https://api-inference.modelscope.cn/v1/
-      api_key: os.environ/MODELSCOPE_API_KEY
-      weight: 8
-    rpm: 1
-    max_parallel_requests: 1
-
-  - model_name: pro-model
-    litellm_params:
-      model: openai/deepseek-ai/DeepSeek-V4-Pro
-      api_base: https://api-inference.modelscope.cn/v1/
-      api_key: os.environ/MODELSCOPE_API_KEY
-      weight: 4
-    rpm: 1
-    max_parallel_requests: 1
-
 
   # ------------------------------------------------------------------
   # backup-model: 非 ModelScope 稳定兜底
