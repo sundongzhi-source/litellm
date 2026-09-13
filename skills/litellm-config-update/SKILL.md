@@ -39,6 +39,7 @@ ModelScope API-Inference 是免费、非商业化、无 SLA 的服务，并且�
 
 - 将 ModelScope 视为经济优先的尽力而为容量。
 - ModelScope 部署优先保持单并发：除非用户明确要求，否则保留 `rpm: 1` 和 `max_parallel_requests: 1`。
+- 调用 ModelScope API 前，先从进程环境变量读取 `MODELSCOPE_API_KEY`；如果进程环境变量未设置，则从 `/home/ubuntu/litellm/.env` 加载该变量。只在当前进程内加载，不要修改或提交 `.env`。
 - 只使用当前账号调用 `https://api-inference.modelscope.cn/v1/models` 返回的精确模型 ID。
 - 本技能中列出的具体模型只是创建技能时的当前参考，会随 ModelScope 可用列表变化；后续更新时必须以实时 `/v1/models` 返回为准，不要把参考清单当成固定白名单。
 - 在 LiteLLM 中，ModelScope 模型写成 `openai/<精确模型ID>`，并使用 `api_base: https://api-inference.modelscope.cn/v1/` 和 `api_key: os.environ/MODELSCOPE_API_KEY`。
@@ -132,7 +133,7 @@ litellm_settings:
 
 当用户要求根据新的 ModelScope 列表更新配置时：
 
-1. 使用已配置的 `MODELSCOPE_API_KEY` 查询 ModelScope `/v1/models`，或使用用户提供的模型列表。
+1. 从进程环境变量或 `/home/ubuntu/litellm/.env` 加载 `MODELSCOPE_API_KEY`，再查询 ModelScope `/v1/models`；如果两处都没有密钥，应明确报告无法执行在线检查。
 2. 将返回的精确模型 ID 与当前 `config.yaml` 中的 ModelScope 部署对比。
 3. 找出当前配置中无效的 ModelScope ID，并提出替换方案。
 4. 按上面的模型组规则分配候选模型。
@@ -157,7 +158,7 @@ python3 -c "import yaml, pathlib; data=yaml.safe_load(pathlib.Path('config.yaml'
 
 编辑 `config.yaml` 后，还必须做全量模型检查：
 
-- ModelScope ID 检查：使用当前 `MODELSCOPE_API_KEY` 调用 `https://api-inference.modelscope.cn/v1/models`，确认所有 `api_base: https://api-inference.modelscope.cn/v1/` 的部署模型都在返回列表中。
+- ModelScope ID 检查：先从进程环境变量或 `/home/ubuntu/litellm/.env` 加载 `MODELSCOPE_API_KEY`，再调用 `https://api-inference.modelscope.cn/v1/models`，确认所有 `api_base: https://api-inference.modelscope.cn/v1/` 的部署模型都在返回列表中。检查输出和报告中不得显示密钥值。
 - 全量运行时检查：当用户要求检查所有模型是否有效、或本次修改涉及模型列表/供应商路由时，对 `config.yaml` 中所有模型做一次实际调用探测，并记录健康、降级、失败数量。
 - 结果汇报中要明确区分：`/v1/models` 命中表示“模型 ID 有效”；实际调用探测成功才表示“当前运行时可用”。遇到 400、403、429、余额不足、响应格式异常等，应按运行时不可用或降级报告，不要把它混同为 ID 不存在。
 

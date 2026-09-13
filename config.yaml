@@ -1,32 +1,5 @@
 model_list:
   # ------------------------------------------------------------------
-  # smart-model: 通用高质量模型池
-  # ------------------------------------------------------------------
-  - model_name: smart-model
-    litellm_params:
-      model: openai/agent/deepseek-v3.2(free)
-      api_base: https://open.cherryin.ai/v1
-      api_key: os.environ/CHERRYIN_API_KEY
-
-  - model_name: smart-model
-    litellm_params:
-      model: openai/deepseek-ai/DeepSeek-V4-Pro-0813
-      api_base: https://api-inference.modelscope.cn/v1/
-      api_key: os.environ/MODELSCOPE_API_KEY
-
-  - model_name: smart-model
-    litellm_params:
-      model: openai/Pro/deepseek-ai/DeepSeek-V3.2
-      api_base: https://api.siliconflow.cn/v1
-      api_key: os.environ/SILICONFLOW_API_KEY
-
-  - model_name: smart-model
-    litellm_params:
-      model: openai/GLM-4.5-Flash
-      api_base: https://api.z.ai/api/paas/v4
-      api_key: os.environ/ZAI_API_KEY
-
-  # ------------------------------------------------------------------
   # claude-smart: Anthropic-compatible 客户端使用的逻辑模型名
   # ------------------------------------------------------------------
   - model_name: claude-smart
@@ -53,12 +26,6 @@ model_list:
       api_key: os.environ/CUSTOM_GPT_API_KEY
       extra_headers:
         User-Agent: curl/8.0
-
-  - model_name: code-model
-    litellm_params:
-      model: openai/Qwen/Qwen3-Coder-30B-A3B-Instruct
-      api_base: https://api-inference.modelscope.cn/v1/
-      api_key: os.environ/MODELSCOPE_API_KEY
 
   # ------------------------------------------------------------------
   # fast-model: 快速 / 低成本模型池
@@ -332,5 +299,5 @@ litellm_settings:
   set_verbose: false
   require_auth_for_metrics_endpoint: false
   fallbacks:
-    - pro-model: ["flash-model", "backup-model"]
-    - flash-model: ["backup-model"]
+    - pro-model: ["flash-model", "code-model", "backup-model"]
+    - flash-model: ["code-model", "backup-model"]
